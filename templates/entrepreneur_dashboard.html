@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="space-y-10">
+    <!-- Profile Section -->
+    <div class="bg-white p-8 rounded-lg shadow-md card">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Entrepreneur Dashboard</h1>
+        <p class="text-gray-600 mb-6">Welcome, {{ user.first_name }}. Manage your company profile and pitches here.</p>
+        
+        <div class="border-t border-gray-200 pt-6">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Edit Your Profile</h2>
+            
+            <!-- This is the form that displays the profile fields -->
+            <form method="post">
+                {% csrf_token %}
+                
+                <!-- This line renders the actual input fields -->
+                <div class="space-y-4">{{ profile_form.as_p }}</div>
+                
+                <div class="text-left mt-6">
+                    <!-- This button submits the profile form -->
+                    <button type="submit" name="save_profile" class="btn btn-primary">Save Profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pitch Management Section -->
+    <div class="bg-white p-8 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Manage Your Pitches</h2>
+        
+        <!-- Create New Pitch Form -->
+        <div class="mb-8 border-b border-gray-200 pb-8">
+            <h3 class="text-xl font-semibold text-gray-700 mb-3">Create a New Pitch</h3>
+            <form method="post">
+                {% csrf_token %}
+                <div class="space-y-4">{{ pitch_form.as_p }}</div>
+                <div class="text-left mt-6">
+                    <button type="submit" name="submit_pitch" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg">Submit Pitch</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- List of Existing Pitches -->
+        <div>
+            <h3 class="text-xl font-semibold text-gray-700 mb-3">Your Submitted Pitches</h3>
+            {% if my_pitches %}
+                <ul class="space-y-4">
+                    {% for pitch in my_pitches %}
+                        <li class="p-4 border border-gray-200 rounded-lg">
+                            <h4 class="font-bold text-lg">{{ pitch.title }}</h4>
+                            <p class="text-sm text-gray-500">Submitted on: {{ pitch.created_at|date:"F d, Y" }}</p>
+                            <p class="mt-2 text-gray-700">{{ pitch.summary|truncatewords:30 }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-gray-500">You have not submitted any pitches yet.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Offers Received Section -->
+    <div class="bg-white p-8 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Offers Received</h2>
+        {% if received_offers %}
+            <div class="space-y-6">
+                {% for offer in received_offers %}
+                    <div class="p-6 border rounded-lg 
+                        {% if offer.status == 'accepted' %} border-green-400 bg-green-50 
+                        {% elif offer.status == 'rejected' %} border-red-400 bg-red-50 
+                        {% else %} border-gray-200 {% endif %}">
+                        
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm text-gray-500">Offer for: <span class="font-bold">{{ offer.pitch.title }}</span></p>
+                                <p class="text-sm text-gray-500">From: <span class="font-semibold">{{ offer.investor.first_name }} {{ offer.investor.last_name }}</span></p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xl font-bold text-gray-800">${{ offer.amount|floatformat:2 }}</p>
+                                <span class="px-3 py-1 text-xs font-semibold rounded-full 
+                                    {% if offer.status == 'accepted' %} bg-green-200 text-green-800 
+                                    {% elif offer.status == 'rejected' %} bg-red-200 text-red-800 
+                                    {% else %} bg-yellow-200 text-yellow-800 {% endif %}">
+                                    {{ offer.get_status_display }}
+                                </span>
+                            </div>
+                        </div>
+                        <p class="mt-3 text-gray-700 italic">"{{ offer.message }}"</p>
+                        
+                        {% if offer.status == 'pending' %}
+                        <div class="mt-4 flex items-center gap-4">
+                            <a href="{% url 'respond_to_offer' offer.id 'accepted' %}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg">Accept</a>
+                            <a href="{% url 'respond_to_offer' offer.id 'rejected' %}" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg">Reject</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-gray-500">You have not received any offers yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- Unanswered Questions Section -->
+    <div class="bg-white p-8 rounded-lg shadow-md card">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Unanswered Questions</h2>
+        {% if unanswered_questions %}
+            <div class="space-y-6">
+                {% for q in unanswered_questions %}
+                    <div class="p-6 border border-yellow-400 bg-yellow-50 rounded-lg">
+                        <p class="text-sm text-gray-500">Question on pitch: <span class="font-bold">{{ q.pitch.title }}</span></p>
+                        <p class="mt-2 font-semibold text-gray-800">"{{ q.text }}"</p>
+                        <form method="post" action="{% url 'submit_answer' q.id %}" class="mt-4">
+                            {% csrf_token %}
+                            {{ answer_form.as_p }}
+                            <div class="text-left mt-4">
+                                <button type="submit" class="btn btn-dark">Submit Answer</button>
+                            </div>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-gray-500">You have no unanswered questions.</p>
+        {% endif %}
+    </div>
+    <div class="bg-white p-8 rounded-lg shadow-md">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">My Conversations</h2>
+        {% if my_conversations %}
+            <ul class="space-y-3">
+                {% for conv in my_conversations %}
+                    <li class="p-4 border rounded-lg hover:bg-gray-50">
+                        <a href="{% url 'chat:room' conv.id %}" class="block">
+                            <p class="font-semibold text-blue-600">Chat for: {{ conv.offer.pitch.title }}</p>
+                            <p class="text-sm text-gray-600">With: {{ conv.offer.investor.first_name }} {{ conv.offer.investor.last_name }}</p>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-gray-500">You have no active conversations.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

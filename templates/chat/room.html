@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-white p-8 rounded-lg shadow-md max-w-2xl mx-auto">
+    <h1 class="text-2xl font-bold text-gray-900 mb-4">Chat: {{ conversation.offer.pitch.title }}</h1>
+    
+    <!-- Chat Messages Box -->
+    <div id="chat-log" class="h-96 border border-gray-300 rounded-lg p-4 overflow-y-auto mb-4 bg-gray-50">
+        <!-- Messages will be appended here by JavaScript -->
+        {% for message in conversation.messages.all %}
+            <div>
+                <span class="font-bold {% if message.sender == user %}text-blue-600{% else %}text-green-600{% endif %}">
+                    {{ message.sender.username }}:
+                </span> 
+                {{ message.content }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Message Input -->
+    <div class="flex gap-2">
+        <input id="chat-message-input" type="text" class="flex-grow border border-gray-300 rounded-lg p-2 focus:ring-blue-500 focus:border-blue-500">
+        <button id="chat-message-submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-lg">Send</button>
+    </div>
+</div>
+
+{{ conversation.id|json_script:"conversation-id" }}
+{{ user.username|json_script:"user-username" }}
+
+<script>
+    const conversationId = JSON.parse(document.getElementById('conversation-id').textContent);
+    const currentUser = JSON.parse(document.getElementById('user-username').textContent);
+    const chatLog = document.getElementById('chat-log');
+
+    const chatSocket = new WebSocket(
+        'ws://' + window.location.host + '/ws/chat/' + conversationId + '/'
+    );
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        const messageDiv = document.createElement('div');
+        
+        const senderSpan = document.createElement('span');
+        senderSpan.className = 'font-bold';
+        senderSpan.textContent = data.sender_username + ': ';
+        
+        if (data.sender_username === currentUser) {
+            senderSpan.classList.add('text-blue-600');
+        } else {
+            senderSpan.classList.add('text-green-600');
+        }
+
+        messageDiv.appendChild(senderSpan);
+        messageDiv.appendChild(document.createTextNode(data.message));
+        chatLog.appendChild(messageDiv);
+        chatLog.scrollTop = chatLog.scrollHeight; // Auto-scroll to bottom
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    document.getElementById('chat-message-input').focus();
+    document.getElementById('chat-message-input').onkeyup = function(e) {
+        if (e.key === 'Enter') {  // enter, return
+            document.getElementById('chat-message-submit').click();
+        }
+    };
+
+    document.getElementById('chat-message-submit').onclick = function(e) {
+        const messageInputDom = document.getElementById('chat-message-input');
+        const message = messageInputDom.value;
+        if (message.trim() === '') return;
+
+        chatSocket.send(JSON.stringify({
+            'message': message
+        }));
+        messageInputDom.value = '';
+    };
+
+    // Scroll to bottom on page load
+    chatLog.scrollTop = chatLog.scrollHeight;
+</script>
+{% endblock %}
+

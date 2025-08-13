@@ -1,0 +1,218 @@
+/* static/css/custom.css */
+
+/* ------------------------- */
+/* --- Global Styles & Variables --- */
+/* ------------------------- */
+
+:root {
+    --primary-blue: #4A90E2;
+    --dark-slate: #34495E;
+    --bright-green: #2ECC71;
+    --danger-red: #E74C3C;
+    --light-gray: #f4f7f6;
+    --text-color: #4A4A4A;
+    --border-color: #e2e8f0;
+}
+
+body {
+    background-color: var(--light-gray);
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+}
+
+/* ------------------------- */
+/* --- Navigation Bar --- */
+/* ------------------------- */
+
+nav.bg-cello {
+    border-bottom: 1px solid var(--border-color);
+    background-color: #34495e;
+}
+
+/* ------------------------- */
+/* --- Buttons --- */
+/* ------------------------- */
+
+/* Base button style */
+.btn {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+    border: none;
+    cursor: pointer;
+}
+
+/* Primary action button (e.g., Sign Up, Apply Filter) */
+.btn-primary {
+    background-color: var(--primary-blue);
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #3a7ac2;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Green button for entrepreneur actions */
+.btn-green {
+    background-color: var(--bright-green);
+    color: white;
+}
+.btn-green:hover {
+    background-color: #27ae60;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Dark slate button for investor actions */
+.btn-dark {
+    background-color: var(--dark-slate);
+    color: white;
+}
+.btn-dark:hover {
+    background-color: #2c3e50;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Red button for destructive actions */
+.btn-danger {
+    background-color: var(--danger-red);
+    color: white;
+}
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* Secondary/Clear button */
+.btn-secondary {
+    background-color: #e2e8f0;
+    color: var(--dark-slate);
+}
+.btn-secondary:hover {
+    background-color: #cbd5e1;
+}
+
+/* --- Footer --- */
+footer.bg-gray-800 {
+    background-color: var(--dark-slate);
+}
+
+
+/* ------------------------- */
+/* --- Forms & Inputs --- */
+/* ------------------------- */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+/* Make Django's default form paragraph tags have no margin */
+form p {
+    margin: 0;
+}
+
+form label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* ------------------------- */
+/* --- Cards & Containers --- */
+/* ------------------------- */
+
+.card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    margin-bottom: 2rem;
+}
+
+.card h1, .card h2 {
+    color: var(--dark-slate);
+}
+
+/* ------------------------- */
+/* --- Dashboard Specifics --- */
+/* ------------------------- */
+
+/* Pitch list item */
+.pitch-card {
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+.pitch-card:hover {
+    border-color: var(--primary-blue);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+
+/* Offer card styling */
+.offer-card {
+    border-radius: 10px;
+    padding: 1.5rem;
+}
+
+.offer-card.status-pending {
+    background-color: #fefce8; /* yellow-50 */
+    border-left: 5px solid #facc15; /* yellow-400 */
+}
+.offer-card.status-accepted {
+    background-color: #f0fdf4; /* green-50 */
+    border-left: 5px solid var(--bright-green);
+}
+.offer-card.status-rejected {
+    background-color: #fef2f2; /* red-50 */
+    border-left: 5px solid var(--danger-red);
+}
+
+/* ------------------------- */
+/* --- Chat Room --- */
+/* ------------------------- */
+
+#chat-log {
+    background-color: #f9fafb; /* gray-50 */
+}
+
+.chat-message {
+    padding: 8px 12px;
+    border-radius: 12px;
+    max-width: 75%;
+    margin-bottom: 8px;
+}
+
+.chat-message.sent {
+    background-color: var(--primary-blue);
+    color: white;
+    margin-left: auto;
+}
+
+.chat-message.received {
+    background-color: #e5e7eb; /* gray-200 */
+    color: var(--text-color);
+    margin-right: auto;
+}
+

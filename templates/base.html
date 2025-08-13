@@ -1,0 +1,110 @@
+<!-- templates/base.html -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <title>InvEnt | Connecting Entrepreneurs and Investors</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Your Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen font-sans">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50" style="background-color: #34495e;">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="{% url 'home' %}">
+                        <img class="h-28 w-auto" src="{% static 'images/logo_wbg.png' %}" alt="InvEnt Logo">
+                    </a>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="flex items-center space-x-4">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'dashboard' %}" class="text-white opacity-80 hover:opacity-100 font-semibold transition-opacity duration-200">Dashboard</a>
+                        <!-- Use your custom button classes -->
+                        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="text-white opacity-80 hover:opacity-100 font-semibold transition-opacity duration-200">Login</a>
+                        <!-- Dropdown for Sign Up -->
+                        <div class="relative" id="signup-dropdown-container">
+                            <button id="signup-dropdown-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-transform duration-200 hover:scale-105">
+                                Sign Up
+                            </button>
+                            <div id="signup-dropdown-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                                <a href="{% url 'signup' %}?user_type=entrepreneur" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">As an Entrepreneur</a>
+                                <a href="{% url 'signup' %}?user_type=investor" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">As an Investor</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow py-10">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+                <!-- Initiative Text -->
+                <div class="mb-4 md:mb-0">
+                    <p class="text-lg font-semibold">InvEnt</p>
+                    <p class="text-sm text-gray-400">An Initiative of V B Global Services</p>
+                </div>
+                
+                <!-- Copyright -->
+                <div>
+                    <p class="text-sm text-gray-400">&copy; {% now "Y" %} InvEnt. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Dropdown -->
+    <script>
+        const signupButton = document.getElementById('signup-dropdown-button');
+        const signupMenu = document.getElementById('signup-dropdown-menu');
+        const signupContainer = document.getElementById('signup-dropdown-container');
+
+        if (signupButton) {
+            signupButton.addEventListener('click', (event) => {
+                event.stopPropagation(); // Prevent the window click event from firing immediately
+                signupMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Close dropdown if clicked outside
+        window.addEventListener('click', function(e) {
+            if (signupMenu && !signupMenu.classList.contains('hidden')) {
+                if (!signupContainer.contains(e.target)) {
+                    signupMenu.classList.add('hidden');
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

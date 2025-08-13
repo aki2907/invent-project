@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-white p-8 rounded-lg shadow-md max-w-md mx-auto">
+    <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">
+        Create Your 
+        {% if user_type == 'investor' %}
+            Investor
+        {% else %}
+            Entrepreneur
+        {% endif %}
+        Account
+    </h2>
+
+    <!-- This new block will display any form errors -->
+    {% if form.errors %}
+        <div class="form-error-container">
+            <ul class="form-error-list">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="text-center mt-6">
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">Sign Up</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
