@@ -2,10 +2,17 @@
 {% load static %}
 
 {% block content %}
-<div class="space-y-24">
+<div>
+    <!-- Welcome Bar -->
+    <section class="w-full bg-slate-100 py-2 border-b border-slate-200 mb-4">
+        <p class="text-center text-slate-700 font-semibold tracking-wide">
+            Welcome to the InvEnt Network
+        </p>
+    </section>
+    <!-- End Welcome Bar -->
 
     <!-- Hero Section -->
-    <section class="text-center py-16">
+    <section class="text-center pb-16">
         <h1 class="text-5xl md:text-6xl font-extrabold text-gray-800 leading-tight">
             Where Great Ideas
             <span class="block text-blue-600">Find Smart Capital.</span>
@@ -36,8 +43,56 @@
         <!-- END OF NEW SEARCH BAR SECTION -->
     </section>
 
+    <!-- Feature Sections -->
+    <div class="space-y-16">
+
+        <!-- Entrepreneurs Section -->
+        <section class="flex flex-col md:flex-row items-center gap-12">
+            <div class="w-full md:w-2/5">
+                <img src="https://placehold.co/600x400/2ECC71/FFFFFF?text=Innovate" alt="An entrepreneur working on a new idea" class="rounded-lg shadow-xl">
+            </div>
+            <div class="w-full md:w-3/5">
+                <h2 class="text-3xl font-bold text-gray-800">For the Visionaries & Builders</h2>
+                <p class="mt-4 text-lg text-gray-600 leading-relaxed pb-6">
+                    You've poured your heart into a groundbreaking idea. Now, it's time to find the fuel to make it a reality. InvEnt provides the platform to get your pitch in front of serious investors who are actively looking for the next big thing. This is more than just a listing; it's your launchpad.
+                </p>
+                <a href="{% url 'signup' %}?user_type=entrepreneur" class="btn btn-green">Submit Your Pitch</a>
+            </div>
+        </section>
+
+        <!-- Investors Section -->
+        <section class="flex flex-col md:flex-row-reverse items-center gap-12">
+            <div class="w-full md:w-2/5">
+                <img src="https://placehold.co/600x400/34495E/FFFFFF?text=Invest" alt="An investor analyzing growth charts" class="rounded-lg shadow-xl">
+            </div>
+            <div class="w-full md:w-3/5">
+                <h2 class="text-3xl font-bold text-gray-800">For the Strategists & Mentors</h2>
+                <p class="mt-4 text-lg text-gray-600 leading-relaxed pb-6">
+                    Your capital is valuable, but your experience is priceless. Sift through the noise and discover a curated selection of high-potential startups. Engage with founders, ask the tough questions, and find the perfect venture that aligns with your expertise and investment thesis.
+                </p>
+                <a href="{% url 'signup' %}?user_type=investor" class="btn btn-dark">Discover Opportunities</a>
+            </div>
+        </section>
+
+        <!-- Investment / Connection Section -->
+        <section class="flex flex-col md:flex-row items-center gap-12">
+            <div class="w-full md:w-2/5">
+                <img src="https://placehold.co/600x400/4A90E2/FFFFFF?text=Connect" alt="A handshake symbolizing a new partnership" class="rounded-lg shadow-xl">
+            </div>
+            <div class="w-full md:w-3/5">
+                <h2 class="text-3xl font-bold text-gray-800">The Power of the Right Partnership</h2>
+                <p class="mt-4 text-lg text-gray-600 leading-relaxed pb-6">
+                    InvEnt is the bridge between a brilliant idea and the smart capital that can bring it to life. We facilitate transparent communication, from public Q&As to private post-offer chats, ensuring that when a connection is made, it's built on a solid foundation of mutual understanding and shared goals.
+                </p>
+                <a href="{% url 'signup' %}" class="btn btn-primary">Join the Network</a>
+            </div>
+        </section>
+
+    </div>
+    <!-- End Feature Sections -->
+
     <!-- How It Works Section -->
-    <section>
+    <section class="mt-24">
         <div class="text-center mb-12">
             <h2 class="text-4xl font-bold text-gray-800">A Simple Path to Partnership</h2>
             <p class="mt-4 text-gray-600">Get started in just a few easy steps.</p>
@@ -65,7 +120,7 @@
     </section>
 
     <!-- Featured Pitches Section -->
-    <section>
+    <section class="mt-24">
         <div class="text-center mb-12">
             <h2 class="text-4xl font-bold text-gray-800">Latest Opportunities</h2>
             <p class="mt-4 text-gray-600">Discover some of the newest pitches on our platform.</p>
@@ -90,7 +145,7 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section class="bg-white p-12 rounded-lg shadow-md">
+    <section class="bg-white p-12 rounded-lg shadow-md mt-24">
         <div class="grid md:grid-cols-2 gap-10 text-center">
             <div>
                 <blockquote class="text-xl italic text-gray-700">"InvEnt connected us with the perfect investor who didn't just bring capital, but also invaluable industry experience. The process was seamless."</blockquote>
@@ -104,7 +159,7 @@
     </section>
 
     <!-- Final CTA -->
-    <section class="text-center py-16">
+    <section class="text-center py-16 mt-24">
         <h2 class="text-4xl font-bold text-gray-800">Ready to Join?</h2>
         <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">
             Whether you're building the future or funding it, your journey starts here.
