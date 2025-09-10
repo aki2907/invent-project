@@ -27,6 +27,36 @@ def home_view(request):
     }
     return render(request, 'home.html', context)
 
+def search_results_view(request):
+    query = request.GET.get('q', '')
+    pitches = Pitch.objects.none()  # Default to an empty queryset
+    investors = User.objects.none() # Default to an empty queryset
+
+    if query:
+        # Search for pitches based on title, summary, company name, or industry
+        pitches = Pitch.objects.filter(
+            Q(title__icontains=query) |
+            Q(summary__icontains=query) |
+            Q(entrepreneur__entrepreneur_profile__company_name__icontains=query) |
+            Q(entrepreneur__entrepreneur_profile__industry__icontains=query)
+        ).distinct()
+
+        # Search for investors based on name or investment interests
+        investors = User.objects.filter(
+            user_type='investor'
+        ).filter(
+            Q(first_name__icontains=query) |
+            Q(last_name__icontains=query) |
+            Q(investor_profile__investment_interests__icontains=query)
+        ).distinct()
+
+    context = {
+        'query': query,
+        'pitches': pitches,
+        'investors': investors,
+    }
+    return render(request, 'search_results.html', context)
+
 def signup_view(request):
     """
     Handles registration for both user types.

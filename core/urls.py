@@ -15,4 +15,5 @@ urlpatterns = [
     path('offer/<int:offer_id>/respond/<str:new_status>/', views.respond_to_offer_view, name='respond_to_offer'),
     path('chat/', include('chat.urls', namespace='chat')),
     path('answer/<int:question_id>/', views.submit_answer_view, name='submit_answer'),
+    path('search/', views.search_results_view, name='search_results'),
 ]

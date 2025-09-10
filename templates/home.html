@@ -18,6 +18,22 @@
             <a href="{% url 'signup' %}?user_type=entrepreneur" class="btn btn-green text-lg">Pitch Your Idea</a>
             <a href="{% url 'signup' %}?user_type=investor" class="btn btn-dark text-lg">Discover Startups</a>
         </div>
+        <!-- NEW SEARCH BAR SECTION -->
+        <div class="mt-10 max-w-2xl mx-auto">
+            <form action="{% url 'search_results' %}" method="GET" class="flex items-center bg-white rounded-full shadow-lg">
+                <input 
+                    type="text" 
+                    name="q" 
+                    class="appearance-none w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none rounded-l-full bg-transparent border-0 focus:ring-0" 
+                    placeholder="Search for Companies, Industries, or Investors..."
+                    style="border: none !important;"
+                >
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-r-full focus:outline-none transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+            </form>
+        </div>
+        <!-- END OF NEW SEARCH BAR SECTION -->
     </section>
 
     <!-- How It Works Section -->
