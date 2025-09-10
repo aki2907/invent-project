@@ -11,7 +11,7 @@ from .forms import (
     EntrepreneurProfileForm, InvestorProfileForm,
     PitchForm, OfferForm, QuestionForm, AnswerForm
 )
-from .models import EntrepreneurProfile, InvestorProfile, Pitch, Offer, Question
+from .models import User, EntrepreneurProfile, InvestorProfile, Pitch, Offer, Question, Answer
 from chat.models import Conversation
 from django.db.models import Q # Add this import for complex queries
 
@@ -43,7 +43,7 @@ def search_results_view(request):
 
         # Search for investors based on name or investment interests
         investors = User.objects.filter(
-            user_type='investor'
+            user_type=2
         ).filter(
             Q(first_name__icontains=query) |
             Q(last_name__icontains=query) |

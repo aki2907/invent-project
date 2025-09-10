@@ -148,3 +148,5 @@ CHANNEL_LAYERS = {
 }
 
 ASGI_APPLICATION = 'invent.asgi.application'
+
+LOGIN_URL = 'login'
