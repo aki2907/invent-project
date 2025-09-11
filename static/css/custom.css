@@ -252,3 +252,15 @@ form label {
 .btn-secondary:hover {
     background-color: #5a6268;
 }
+
+/* --- Footer --- */
+.footer-link {
+    color: var(--slate-400); /* Uses a light gray color */
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer-link:hover {
+    color: white;
+    text-decoration: underline;
+}

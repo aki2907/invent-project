@@ -104,19 +104,52 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white">
-        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-                <!-- Initiative Text -->
-                <div class="mb-4 md:mb-0">
-                    <p class="text-lg font-semibold">InvEnt</p>
-                    <p class="text-sm text-gray-400">An Initiative of V B Global Services</p>
-                </div>
+    <footer class="bg-gray-800 text-white mt-auto">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 
-                <!-- Copyright -->
-                <div>
-                    <p class="text-sm text-gray-400">&copy; {% now "Y" %} InvEnt. All Rights Reserved.</p>
+                <!-- Company Info Column -->
+                <div class="col-span-1 md:col-span-2">
+                    <h3 class="text-xl font-bold">InvEnt</h3>
+                    <p class="mt-2 text-sm text-gray-400">An Initiative of V B Global Services</p>
+                    <p class="mt-4 text-sm text-gray-400 leading-relaxed">
+                        Our mission is to bridge the gap between visionary entrepreneurs and the smart capital that brings great ideas to life.
+                    </p>
                 </div>
+
+                <!-- Quick Links Column -->
+                <div>
+                    <h4 class="text-md font-semibold tracking-wider uppercase">Quick Links</h4>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="{% url 'home' %}" class="footer-link">Home</a></li>
+                        <li><a href="{% url 'about' %}" class="footer-link">About Us</a></li>
+                        <li><a href="{% url 'how_it_works' %}" class="footer-link">How It Works</a></li>
+                        <li><a href="{% url 'investor_dashboard' %}" class="footer-link">Browse Pitches</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal Column -->
+                <div>
+                    <h4 class="text-md font-semibold tracking-wider uppercase">Legal</h4>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="#" class="footer-link">Terms of Service</a></li>
+                        <li><a href="#" class="footer-link">Contact Us</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Huge Logo -->
+            <div class="flex justify-center pt-2">
+                <a href="{% url 'home' %}">
+                    <img class="h-28 w-auto" src="{% static 'images/Logo_wbg.png' %}" alt="InvEnt Logo">
+                </a>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="mt-8 border-t border-gray-700 pt-6 text-center text-sm text-gray-400">
+                <p>&copy; {% now "Y" %} InvEnt by V B Global Services. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
