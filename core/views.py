@@ -308,3 +308,16 @@ def submit_answer_view(request, question_id):
             answer.save()
     
     return redirect('entrepreneur_dashboard')
+
+# --- Views for Other Pages ---
+def about_view(request):
+    """
+    Renders the About Us page.
+    """
+    return render(request, 'about.html')
+
+def how_it_works_view(request):
+    """
+    Renders the How It Works page.
+    """
+    return render(request, 'how_it_works.html')

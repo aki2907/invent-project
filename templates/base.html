@@ -32,8 +32,17 @@
                         <img class="h-28 w-auto" src="{% static 'images/Logo_wbg.png' %}" alt="InvEnt Logo">
                     </a>
                 </div>
+
+                <!-- Desktop Menu Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="{% url 'home' %}" class="text-white opacity-80 hover:opacity-100 font-semibold transition-opacity duration-200">Home</a>
+                    <a href="{% url 'about' %}" class="text-white opacity-80 hover:opacity-100 font-semibold transition-opacity duration-200">About Us</a>
+                    <a href="{% url 'how_it_works' %}" class="text-white opacity-80 hover:opacity-100 font-semibold transition-opacity duration-200">How It Works</a>
+                    <a href="{% url 'dashboard' %}" class="text-white opacity-80 hover:opacity-100 font-semibold transition-opacity duration-200">Browse Pitches</a>
+                    <a href="{% url 'signup' %}?user_type=entrepreneur" class="btn btn-green">Submit a Pitch</a>
+                </div>
                 
-                <!-- Navigation Links -->
+                <!-- Right side buttons (Login/Dashboard/Signup) -->
                 <div class="flex items-center space-x-4">
                     {% if user.is_authenticated %}
                         <a href="{% url 'dashboard' %}" class="text-white opacity-80 hover:opacity-100 font-semibold transition-opacity duration-200">Dashboard</a>
@@ -53,8 +62,37 @@
                         </div>
                     {% endif %}
                 </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </nav>
+
+        <!-- Mobile Menu, show/hide based on menu state. -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="{% url 'home' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="{% url 'about' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About Us</a>
+                <a href="{% url 'how_it_works' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">How It Works</a>
+                <a href="{% url 'dashboard' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Browse Pitches</a>
+                <a href="{% url 'signup' %}?user_type=entrepreneur" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Submit a Pitch</a>
+                <hr class="border-gray-600 my-2">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
+                    <a href="{% url 'logout' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Logout</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Login</a>
+                    <a href="{% url 'signup' %}?user_type=entrepreneur" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Sign Up as Entrepreneur</a>
+                    <a href="{% url 'signup' %}?user_type=investor" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Sign Up as Investor</a>
+                {% endif %}
+            </div>
+        </div>
     </header>
 
     <!-- Main Content -->
@@ -83,8 +121,19 @@
         </div>
     </footer>
 
-    <!-- JavaScript for Dropdown -->
+    <!-- JavaScript for Menus -->
     <script>
+        // Mobile Menu
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Sign Up Dropdown
         const signupButton = document.getElementById('signup-dropdown-button');
         const signupMenu = document.getElementById('signup-dropdown-menu');
         const signupContainer = document.getElementById('signup-dropdown-container');
