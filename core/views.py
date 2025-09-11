@@ -14,6 +14,7 @@ from .forms import (
 from .models import User, EntrepreneurProfile, InvestorProfile, Pitch, Offer, Question, Answer
 from chat.models import Conversation
 from django.db.models import Q # Add this import for complex queries
+from django.views.generic import TemplateView
 
 def home_view(request):
     """
@@ -309,15 +310,16 @@ def submit_answer_view(request, question_id):
     
     return redirect('entrepreneur_dashboard')
 
-# --- Views for Other Pages ---
-def about_view(request):
-    """
-    Renders the About Us page.
-    """
-    return render(request, 'about.html')
+# Views for static pages
+class AboutView(TemplateView):
+    template_name = 'about.html'
 
-def how_it_works_view(request):
-    """
-    Renders the How It Works page.
-    """
-    return render(request, 'how_it_works.html')
+class HowItWorksView(TemplateView):
+    template_name = 'how_it_works.html'
+    
+class ContactView(TemplateView):
+    template_name = 'contact.html'
+
+about_view = AboutView.as_view()
+how_it_works_view = HowItWorksView.as_view()
+contact_view = ContactView.as_view()

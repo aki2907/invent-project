@@ -18,4 +18,8 @@ urlpatterns = [
     path('search/', views.search_results_view, name='search_results'),
     path('about/', views.about_view, name='about'),
     path('how-it-works/', views.how_it_works_view, name='how_it_works'),
+    path('contact/', views.contact_view, name='contact'),
 ]
+
+
+
