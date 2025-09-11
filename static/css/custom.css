@@ -216,3 +216,39 @@ form label {
     margin-right: auto;
 }
 
+/* --- Featured Companies Section --- */
+.featured-card {
+    background-color: white;
+    border: 1px solid #e5e7eb; /* --slate-200 */
+    border-radius: 0.75rem; /* rounded-xl */
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.featured-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+}
+
+.featured-card .p-6 {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* A standard secondary gray */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}

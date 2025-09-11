@@ -144,6 +144,32 @@
         </div>
     </section>
 
+    <!-- Featured Companies Section -->
+    <section class="mt-24">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-800">Featured Companies</h2>
+            <p class="mt-4 text-gray-600">Discover some of the most promising ventures on the InvEnt Network.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            {% for pitch in featured_pitches %}
+                <div class="featured-card">
+                    <img src="https://placehold.co/600x400/34495E/FFFFFF?text={{ pitch.entrepreneur.entrepreneur_profile.company_name|urlencode }}" alt="{{ pitch.entrepreneur.entrepreneur_profile.company_name }} Logo" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">{{ pitch.entrepreneur.entrepreneur_profile.company_name }}</h3>
+                        <p class="text-gray-600 mb-6 h-8 overflow-hidden">{{ pitch.summary }}</p>
+                        <div class="flex items-center gap-2">
+                            <a href="{% url 'pitch_detail' pitch.id %}" class="btn btn-primary w-full text-center">Invest Now</a>
+                            <a href="{% url 'pitch_detail' pitch.id %}" class="btn btn-secondary w-full text-center">Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="md:col-span-3 text-center text-gray-500">No companies have submitted a pitch yet. Check back soon!</p>
+            {% endfor %}
+        </div>
+    </section>
+    <!-- End Featured Companies Section -->
+
     <!-- Testimonials Section -->
     <section class="bg-white p-12 rounded-lg shadow-md mt-24">
         <div class="grid md:grid-cols-2 gap-10 text-center">

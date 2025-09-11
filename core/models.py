@@ -25,6 +25,7 @@ class EntrepreneurProfile(models.Model):
     industry = models.CharField(max_length=100, blank=True)
     funding_sought = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
     business_plan = models.TextField(blank=True, help_text="Provide a detailed business plan.")
+    company_details = models.TextField(blank=True, null=True, help_text="Detailed information about your company, mission, and team.")
     
     def __str__(self):
         return f"{self.user.username}'s Entrepreneur Profile"
