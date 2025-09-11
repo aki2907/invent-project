@@ -22,6 +22,7 @@ class EntrepreneurProfile(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='entrepreneur_profile')
     company_name = models.CharField(max_length=255, blank=True)
+    company_logo = models.ImageField(upload_to='company_logos/', blank=True, null=True, help_text="Upload your company's logo.")
     industry = models.CharField(max_length=100, blank=True)
     funding_sought = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
     business_plan = models.TextField(blank=True, help_text="Provide a detailed business plan.")

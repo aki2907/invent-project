@@ -64,7 +64,7 @@ class EntrepreneurProfileForm(forms.ModelForm):
     """
     class Meta:
         model = EntrepreneurProfile
-        fields = ('company_name', 'industry', 'funding_sought', 'business_plan', 'company_details')
+        fields = ('company_name', 'company_logo', 'industry', 'funding_sought', 'business_plan', 'company_details')
         widgets = {
             'business_plan': forms.Textarea(attrs={'rows': 8}),
         }
